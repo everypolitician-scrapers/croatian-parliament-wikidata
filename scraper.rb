@@ -47,7 +47,7 @@ srids = WikiData.ids_from_pages('sr', sr_wikinames('https://sr.wikipedia.org/wik
 ids = (enids + shids + srids).uniq
 
 ids.each do |id|
-  data = WikiData::Fetcher.new(id: id).data rescue nil
+  data = WikiData::Fetcher.new(id: id).data('hr','sh','en','sr') rescue nil
   unless data
     warn "No data for #{p}"
     next
