@@ -54,3 +54,7 @@ ids.each do |id|
   end
   ScraperWiki.save_sqlite([:id], data)
 end
+
+require 'rest-client'
+warn RestClient.post ENV['MORPH_REBUILDER_URL'], {} if ENV['MORPH_REBUILDER_URL']
+
