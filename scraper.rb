@@ -38,7 +38,7 @@ EveryPolitician::Wikidata.scrape_wikidata(names: {
   en: en_wikinames('https://en.wikipedia.org/wiki/List_of_members_of_Croatian_Parliament'),
   sh: sh_wikinames('https://sh.wikipedia.org/wiki/Sedmi_saziv_Hrvatskog_sabora'),
   sr: sr_wikinames('https://sr.wikipedia.org/wiki/Седми_сазив_Хрватског_сабора'),
-}, output: true)
+}, output: false)
 
 warn EveryPolitician::Wikidata.notify_rebuilder
 
