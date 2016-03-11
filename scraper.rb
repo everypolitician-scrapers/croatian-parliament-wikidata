@@ -2,43 +2,36 @@
 # encoding: utf-8
 
 require 'wikidata/fetcher'
-require 'nokogiri'
-require 'open-uri'
 
-def noko_for(url)
-  Nokogiri::HTML(open(URI.escape(URI.unescape(url))).read) 
-end
+en_2015 = EveryPolitician::Wikidata.wikipedia_xpath( 
+  url: 'https://en.wikipedia.org/wiki/List_of_members_of_Croatian_Parliament,_2015%E2%80%93',
+  after: '//span[@id="MPs_by_party"]',
+  xpath: '//table[.//th[.="Name"]]//td[position() = last() - 1]//a[not(@class="new")]/@title',
+) 
 
-def en_wikinames(url)
-  noko = noko_for(url)
-  noko.xpath('//table[.//th[3][.="Constituency"]]//tr[td]').map { |tr|
-    tds = tr.css('td')
-    tds[-2].xpath('.//a[not(@class="new")]/@title')
-  }.reject(&:empty?).map(&:text)
-end
+en_2011 = EveryPolitician::Wikidata.wikipedia_xpath( 
+  url: 'https://en.wikipedia.org/wiki/List_of_members_of_Croatian_Parliament,_2011%E2%80%9315',
+  after: '//span[@id="MPs_by_party"]',
+  xpath: '//table[.//th[.="Name"]]//td[position() = last() - 1]//a[not(@class="new")]/@title',
+) 
 
-def sh_wikinames(url)
-  noko = noko_for(url)
-  noko.xpath('//table[.//th[3][.="Napomena"]]//tr[td]').map { |tr|
-    tds = tr.css('td')
-    tds[-2].xpath('.//a[not(@class="new")]/@title')
-  }.reject(&:empty?).map(&:text)
-end
+sh = EveryPolitician::Wikidata.wikipedia_xpath( 
+  url: 'https://sh.wikipedia.org/wiki/Sedmi_saziv_Hrvatskog_sabora',
+  after: '//span[@id="Spisak_poslanika_po_strankama"]',
+  xpath: '//table[.//th[.="Poslanik"]]//td[position() = last() - 1]//a[not(@class="new")]/@title',
+) 
 
-def sr_wikinames(url)
-  noko = noko_for(url)
-  noko.xpath('//table[.//th[3][.="Напомена"]]//tr[td]').map { |tr|
-    tds = tr.css('td')
-    tds[-2].xpath('.//a[not(@class="new")]/@title')
-  }.reject(&:empty?).map(&:text)
-end
+sr = EveryPolitician::Wikidata.wikipedia_xpath( 
+  url: 'https://sr.wikipedia.org/wiki/Седми_сазив_Хрватског_сабора',
+  after: '//span[.="Списак посланика по странкама"]',
+  xpath: '//table[.//th[.="Посланик"]]//td[position() = last() - 1]//a[not(@class="new")]/@title',
+  debug: true
+) 
 
 EveryPolitician::Wikidata.scrape_wikidata(names: { 
   hr: [],
-  en: en_wikinames('https://en.wikipedia.org/wiki/List_of_members_of_Croatian_Parliament'),
-  sh: sh_wikinames('https://sh.wikipedia.org/wiki/Sedmi_saziv_Hrvatskog_sabora'),
-  sr: sr_wikinames('https://sr.wikipedia.org/wiki/Седми_сазив_Хрватског_сабора'),
+  en: en2011 | en2015,
+  sh: sh,
+  sr: sr
 }, output: false)
-
-warn EveryPolitician::Wikidata.notify_rebuilder
 
