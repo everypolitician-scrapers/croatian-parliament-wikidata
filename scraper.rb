@@ -25,12 +25,11 @@ sr = EveryPolitician::Wikidata.wikipedia_xpath(
   url: 'https://sr.wikipedia.org/wiki/Седми_сазив_Хрватског_сабора',
   after: '//span[.="Списак посланика по странкама"]',
   xpath: '//table[.//th[.="Посланик"]]//td[position() = last() - 1]//a[not(@class="new")]/@title',
-  debug: true
 ) 
 
 EveryPolitician::Wikidata.scrape_wikidata(names: { 
   hr: [],
-  en: en2011 | en2015,
+  en: en_2011 | en_2015,
   sh: sh,
   sr: sr
 }, output: false)
