@@ -10,7 +10,7 @@ en_2016 = EveryPolitician::Wikidata.wikipedia_xpath(
 )
 
 en_2015 = EveryPolitician::Wikidata.wikipedia_xpath(
-  url: 'https://en.wikipedia.org/wiki/List_of_members_of_Croatian_Parliament,_2015–',
+  url: 'https://en.wikipedia.org/wiki/List_of_members_of_Croatian_Parliament,_2015–16',
   after: '//span[@id="MPs_by_party"]',
   xpath: '//table[.//th[.="Name"]]//td[position() = last() - 1]//a[not(@class="new")]/@title'
 )
