@@ -4,19 +4,19 @@
 require 'wikidata/fetcher'
 
 en_2016 = EveryPolitician::Wikidata.wikipedia_xpath(
-  url: 'https://en.wikipedia.org/wiki/List_of_members_of_Croatian_Parliament,_2016%E2%80%93',
+  url: 'https://en.wikipedia.org/wiki/List_of_members_of_Croatian_Parliament,_2016–',
   after: '//span[@id="MPs_by_party"]',
   xpath: '//table[.//th[.="Name"]]//td[position() = last() - 1]//a[not(@class="new")]/@title'
 )
 
 en_2015 = EveryPolitician::Wikidata.wikipedia_xpath(
-  url: 'https://en.wikipedia.org/wiki/List_of_members_of_Croatian_Parliament,_2015%E2%80%93',
+  url: 'https://en.wikipedia.org/wiki/List_of_members_of_Croatian_Parliament,_2015–',
   after: '//span[@id="MPs_by_party"]',
   xpath: '//table[.//th[.="Name"]]//td[position() = last() - 1]//a[not(@class="new")]/@title'
 )
 
 en_2011 = EveryPolitician::Wikidata.wikipedia_xpath(
-  url: 'https://en.wikipedia.org/wiki/List_of_members_of_Croatian_Parliament,_2011%E2%80%9315',
+  url: 'https://en.wikipedia.org/wiki/List_of_members_of_Croatian_Parliament,_2011–15',
   after: '//span[@id="MPs_by_party"]',
   xpath: '//table[.//th[.="Name"]]//td[position() = last() - 1]//a[not(@class="new")]/@title'
 )
