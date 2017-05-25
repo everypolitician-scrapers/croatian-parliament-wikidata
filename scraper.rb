@@ -33,4 +33,19 @@ sr = EveryPolitician::Wikidata.wikipedia_xpath(
   xpath: '//table[.//th[.="Посланик"]]//td[position() = last() - 1]//a[not(@class="new")]/@title'
 )
 
-EveryPolitician::Wikidata.scrape_wikidata(names: { hr: [], en: en_2011 | en_2015 | en_2016, sh: sh, sr: sr })
+# Find all P39s of the 9th Sabor
+query = <<EOS
+  SELECT DISTINCT ?item
+  WHERE
+  {
+    VALUES ?membership { wd:Q18643511 }
+    VALUES ?term { wd:Q29626082 }
+
+    ?item p:P39 ?position_statement .
+    ?position_statement ps:P39 ?membership .
+    ?position_statement pq:P2937 ?term .
+  }
+EOS
+p39s = EveryPolitician::Wikidata.sparql(query)
+
+EveryPolitician::Wikidata.scrape_wikidata(ids: p39s, names: { hr: [], en: en_2011 | en_2015 | en_2016, sh: sh, sr: sr })
